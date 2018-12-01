@@ -21,11 +21,27 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.4.2765"
     runDir = "run"
-    
+
     mappings = "stable_39"
 }
 
 dependencies {
+}
+
+jar {
+    manifest {
+        attributes(
+            "Maven-Artifact": getMavenArtifactId(),
+            "Timestamp": System.currentTimeMillis()
+        )
+    }
+}
+
+def getMavenArtifactId() {
+    String version = project.version.toString()
+    if (System.getenv("BUILD_NUMBER") != null && System.getenv("SHOW_BUILD_NUMBER") != null)
+        version += "_" + System.getenv("BUILD_NUMBER")
+    return "$group:$name:$version"
 }
 
 processResources {
@@ -34,10 +50,10 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
