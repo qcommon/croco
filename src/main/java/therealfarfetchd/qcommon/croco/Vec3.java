@@ -78,6 +78,10 @@ public final class Vec3 {
         return new Vec3d(x, y, z);
     }
 
+    public Vec3i toVec3i() {
+        return new Vec3i(x, y, z);
+    }
+
     public Vec4 toVec4() {
         return new Vec4(x, y, z, 1);
     }
@@ -104,6 +108,10 @@ public final class Vec3 {
 
     public static Vec3 from(Vec3i vec) {
         return new Vec3(vec.getX(), vec.getY(), vec.getZ());
+    }
+
+    public static Vec3 from(Vec3d vec) {
+        return new Vec3((float) vec.x, (float) vec.y, (float) vec.z);
     }
 
 }

@@ -1,5 +1,7 @@
 package therealfarfetchd.qcommon.croco;
 
+import net.minecraft.util.math.Vec2f;
+
 import java.util.Objects;
 
 public final class Vec2 {
@@ -62,6 +64,10 @@ public final class Vec2 {
         return normalized;
     }
 
+    public Vec2f toVec2f() {
+        return new Vec2f(x, y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,6 +85,10 @@ public final class Vec2 {
     @Override
     public String toString() {
         return String.format("(%f, %f)", x, y);
+    }
+
+    public static Vec2 from(Vec2f vec) {
+        return new Vec2(vec.x, vec.y);
     }
 
 }
