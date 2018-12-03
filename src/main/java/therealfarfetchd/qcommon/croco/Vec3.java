@@ -14,7 +14,9 @@ public final class Vec3 {
     public final float z;
 
     private float length = Float.NaN;
+    private float lengthSq = Float.NaN;
     private Vec3 normalized;
+    private Vec3 negated;
 
     public Vec3(float x, float y, float z) {
         this.x = x;
@@ -59,19 +61,40 @@ public final class Vec3 {
 
     public float getLength() {
         if (Float.isNaN(length)) {
-            length = (float) Math.sqrt(x * x + y * y + z * z);
+            length = (float) Math.sqrt(getLengthSq());
         }
 
         return length;
+    }
+
+    public float getLengthSq() {
+        if (Float.isNaN(lengthSq)) {
+            lengthSq = x * x + y * y + z * z;
+        }
+
+        return lengthSq;
     }
 
     public Vec3 getNormalized() {
         if (normalized == null) {
             normalized = new Vec3(x / getLength(), y / getLength(), z / getLength());
             normalized.length = 1;
+            normalized.lengthSq = 1;
+            normalized.normalized = normalized;
         }
 
         return normalized;
+    }
+
+    public Vec3 negate() {
+        if (negated == null) {
+            negated = new Vec3(-x, -y, -z);
+            negated.length = length;
+            negated.lengthSq = lengthSq;
+            negated.negated = this;
+        }
+
+        return negated;
     }
 
     public Vec3d toVec3d() {

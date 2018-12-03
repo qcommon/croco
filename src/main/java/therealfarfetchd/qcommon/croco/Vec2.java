@@ -12,7 +12,9 @@ public final class Vec2 {
     public final float y;
 
     private float length = Float.NaN;
+    private float lengthSq = Float.NaN;
     private Vec2 normalized;
+    private Vec2 negated;
 
     public Vec2(float x, float y) {
         this.x = x;
@@ -49,19 +51,40 @@ public final class Vec2 {
 
     public float getLength() {
         if (Float.isNaN(length)) {
-            length = (float) Math.sqrt(x * x + y * y);
+            length = (float) Math.sqrt(getLengthSq());
         }
 
         return length;
+    }
+
+    public float getLengthSq() {
+        if (Float.isNaN(lengthSq)) {
+            lengthSq = x * x + y * y;
+        }
+
+        return lengthSq;
     }
 
     public Vec2 getNormalized() {
         if (normalized == null) {
             normalized = new Vec2(x / getLength(), y / getLength());
             normalized.length = 1;
+            normalized.lengthSq = 1;
+            normalized.normalized = normalized;
         }
 
         return normalized;
+    }
+
+    public Vec2 negate() {
+        if (negated == null) {
+            negated = new Vec2(-x, -y);
+            negated.length = length;
+            negated.lengthSq = lengthSq;
+            negated.negated = this;
+        }
+
+        return negated;
     }
 
     public Vec2f toVec2f() {
