@@ -1,0 +1,7 @@
+{
+  "id": "qcommon-croco",
+  "name": "Croco",
+  "version": "1.0.2",
+  "side": "universal",
+  "initializer": "therealfarfetchd.qcommon.croco.Croco"
+}

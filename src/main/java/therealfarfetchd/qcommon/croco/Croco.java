@@ -1,10 +1,12 @@
 package therealfarfetchd.qcommon.croco;
 
-import net.minecraftforge.fml.common.Mod;
+import net.fabricmc.api.ModInitializer;
 
-@Mod(modid = Croco.MODID, useMetadata = true)
-public class Croco {
+public class Croco implements ModInitializer {
 
     public static final String MODID = "qcommon-croco";
+
+    @Override
+    public void onInitialize() {}
 
 }

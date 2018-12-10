@@ -1,60 +1,25 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
+plugins {
+	id 'fabric-loom' version '0.1.0-SNAPSHOT'
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 version = "1.0.2"
 group = "therealfarfetchd.qcommon.croco"
 archivesBaseName = "qcommon-croco"
 
-sourceCompatibility = targetCompatibility = '1.8'
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
-
 minecraft {
-    version = "1.12.2-14.23.4.2765"
-    runDir = "run"
-
-    mappings = "stable_39"
 }
 
 dependencies {
+	minecraft "com.mojang:minecraft:18w49a"
+	mappings "net.fabricmc:yarn:18w49a.5"
+	modCompile "net.fabricmc:fabric-loader:0.2.0.61"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modCompile "net.fabricmc:fabric:0.1.0.36"
+
+	compile "com.google.code.findbugs:jsr305:3.0.2"
 }
 
-jar {
-    manifest {
-        attributes(
-            "Maven-Artifact": getMavenArtifactId(),
-            "Timestamp": System.currentTimeMillis()
-        )
-    }
-}
-
-def getMavenArtifactId() {
-    String version = project.version.toString()
-    if (System.getenv("BUILD_NUMBER") != null && System.getenv("SHOW_BUILD_NUMBER") != null)
-        version += "_" + System.getenv("BUILD_NUMBER")
-    return "$group:$name:$version"
-}
-
-processResources {
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
