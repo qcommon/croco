@@ -1,5 +1,6 @@
 package therealfarfetchd.qcommon.croco;
 
+import java.nio.FloatBuffer;
 import java.util.Objects;
 
 import static java.lang.Math.PI;
@@ -97,6 +98,15 @@ public final class Mat4 {
 
     public Vec3 mul(Vec3 other) {
         return mul(other.toVec4()).toVec3();
+    }
+
+    public void intoBuffer(FloatBuffer fb) {
+        // @formatter:off
+        fb.put(c00); fb.put(c10); fb.put(c20); fb.put(c30);
+        fb.put(c01); fb.put(c11); fb.put(c21); fb.put(c31);
+        fb.put(c02); fb.put(c12); fb.put(c22); fb.put(c32);
+        fb.put(c03); fb.put(c13); fb.put(c23); fb.put(c33);
+        // @formatter:on
     }
 
     // @formatter:off
