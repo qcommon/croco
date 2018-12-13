@@ -109,6 +109,17 @@ public final class Mat4 {
         // @formatter:on
     }
 
+    public static Mat4 fromBuffer(FloatBuffer fb) {
+        float[] data = new float[16];
+        fb.get(data);
+        return new Mat4(
+            data[0], data[4], data[8], data[12],
+            data[1], data[5], data[9], data[13],
+            data[2], data[6], data[10], data[14],
+            data[3], data[7], data[11], data[15]
+        );
+    }
+
     // @formatter:off
     public Vec4 getR0() { if (r0 == null) r0 = new Vec4(c00, c01, c02, c03); return r0; }
     public Vec4 getR1() { if (r1 == null) r1 = new Vec4(c10, c11, c12, c13); return r1; }
