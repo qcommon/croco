@@ -1,7 +1,15 @@
 {
   "id": "qcommon-croco",
   "name": "Croco",
+  "description": "Vector math library",
   "version": "1.0.2",
+  "license": "LGPLv3",
   "side": "universal",
-  "initializer": "therealfarfetchd.qcommon.croco.Croco"
+  "initializer": "therealfarfetchd.qcommon.croco.Croco",
+  "authors": ["therealfarfetchd"],
+  "links": {
+    "homepage": "https://github.com/qcommon/croco",
+    "issues": "https://github.com/qcommon/croco/issues",
+    "sources": "https://github.com/qcommon/croco"
+  }
 }
