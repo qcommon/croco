@@ -1,7 +1,6 @@
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
+@DefaultQualifier(value = NonNull.class, locations = TypeUseLocation.ALL)
 package therealfarfetchd.qcommon.croco;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-import therealfarfetchd.qcommon.MethodsReturnNonnullByDefault;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.framework.qual.DefaultQualifier;
+import org.checkerframework.framework.qual.TypeUseLocation;
