@@ -4,72 +4,72 @@ import net.minecraft.util.math.Vec2f;
 
 import java.util.Objects;
 
-public final class Vec2 {
+public final class Vec2i {
 
-    public static final Vec2 ORIGIN = new Vec2(0, 0);
+    public static final Vec2i ORIGIN = new Vec2i(0, 0);
 
-    public final float x;
-    public final float y;
+    public final int x;
+    public final int y;
 
-    float length = Float.NaN;
-    float lengthSq = Float.NaN;
-    Vec2 normalized;
-    private Vec2 negated;
+    private float length = Float.NaN;
+    private float lengthSq = Float.NaN;
+    private Vec2 normalized;
+    private Vec2i negated;
 
-    public Vec2(float x, float y) {
+    public Vec2i(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Vec2 add(Vec2i other) {
-        return new Vec2(this.x + other.x, this.y + other.y);
+    public Vec2i add(Vec2i other) {
+        return new Vec2i(this.x + other.x, this.y + other.y);
     }
 
     public Vec2 add(Vec2 other) {
         return new Vec2(this.x + other.x, this.y + other.y);
     }
 
-    public Vec2 sub(Vec2i other) {
-        return new Vec2(this.x - other.x, this.y - other.y);
+    public Vec2i sub(Vec2i other) {
+        return new Vec2i(this.x - other.x, this.y - other.y);
     }
 
     public Vec2 sub(Vec2 other) {
         return new Vec2(this.x - other.x, this.y - other.y);
     }
 
-    public Vec2 mul(Vec2i other) {
-        return new Vec2(this.x * other.x, this.y * other.y);
+    public Vec2i mul(Vec2i other) {
+        return new Vec2i(this.x * other.x, this.y * other.y);
     }
 
     public Vec2 mul(Vec2 other) {
         return new Vec2(this.x * other.x, this.y * other.y);
     }
 
-    public Vec2 mul(int other) {
-        return new Vec2(this.x * other, this.y * other);
+    public Vec2i mul(int other) {
+        return new Vec2i(this.x * other, this.y * other);
     }
 
     public Vec2 mul(float other) {
         return new Vec2(this.x * other, this.y * other);
     }
 
-    public Vec2 div(Vec2i other) {
-        return new Vec2(x / other.x, this.y / other.y);
+    public Vec2i div(Vec2i other) {
+        return new Vec2i(x / other.x, this.y / other.y);
     }
 
     public Vec2 div(Vec2 other) {
         return new Vec2(x / other.x, this.y / other.y);
     }
 
-    public Vec2 div(int other) {
-        return new Vec2(this.x / other, this.y / other);
+    public Vec2i div(int other) {
+        return new Vec2i(this.x / other, this.y / other);
     }
 
     public Vec2 div(float other) {
         return new Vec2(this.x / other, this.y / other);
     }
 
-    public float dot(Vec2 other) {
+    public float dot(Vec2i other) {
         return this.x * other.x + this.y * other.y;
     }
 
@@ -100,9 +100,9 @@ public final class Vec2 {
         return normalized;
     }
 
-    public Vec2 negate() {
+    public Vec2i negate() {
         if (negated == null) {
-            negated = new Vec2(-x, -y);
+            negated = new Vec2i(-x, -y);
             negated.length = length;
             negated.lengthSq = lengthSq;
             negated.negated = this;
@@ -111,8 +111,8 @@ public final class Vec2 {
         return negated;
     }
 
-    public Vec2i toVec2i() {
-        return new Vec2i((int) x, (int) y);
+    public Vec2 toVec2() {
+        return new Vec2(x, y);
     }
 
     public Vec2f toVec2f() {
@@ -123,7 +123,7 @@ public final class Vec2 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Vec2 vec2 = (Vec2) o;
+        Vec2i vec2 = (Vec2i) o;
         return vec2.x == x &&
             vec2.y == y;
     }
@@ -135,11 +135,7 @@ public final class Vec2 {
 
     @Override
     public String toString() {
-        return String.format("(%f, %f)", x, y);
-    }
-
-    public static Vec2 from(Vec2f vec) {
-        return new Vec2(vec.x, vec.y);
+        return String.format("(%d, %d)", x, y);
     }
 
 }
