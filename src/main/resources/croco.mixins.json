@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "therealfarfetchd.qcommon.croco.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "Matrix4fMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

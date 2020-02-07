@@ -1,9 +1,13 @@
 package therealfarfetchd.qcommon.croco;
 
+import net.minecraft.client.util.math.Matrix4f;
+
 import java.nio.FloatBuffer;
-import java.util.Objects;
+import java.util.Arrays;
 
 import javax.annotation.Nullable;
+
+import therealfarfetchd.qcommon.croco.ext.Matrix4fExt;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
@@ -125,6 +129,34 @@ public final class Mat4 {
         );
     }
 
+    public Matrix4f toMatrix4f() {
+        Matrix4f mat = new Matrix4f();
+        Matrix4fExt.from(mat).setData(toArray());
+        return mat;
+    }
+
+    public static Mat4 fromMatrix4f(Matrix4f mat) {
+        return Mat4.fromArray(Matrix4fExt.from(mat).getData());
+    }
+
+    public float[] toArray() {
+        return new float[]{
+            c00, c01, c02, c03,
+            c10, c11, c12, c13,
+            c20, c21, c22, c23,
+            c30, c31, c32, c33
+        };
+    }
+
+    public static Mat4 fromArray(float[] array) {
+        return new Mat4(
+            array[0], array[1], array[2], array[3],
+            array[4], array[5], array[6], array[7],
+            array[8], array[9], array[10], array[11],
+            array[12], array[13], array[14], array[15]
+        );
+    }
+
     // @formatter:off
     public Vec4 getR0() { if (r0 == null) r0 = new Vec4(c00, c01, c02, c03); return r0; }
     public Vec4 getR1() { if (r1 == null) r1 = new Vec4(c10, c11, c12, c13); return r1; }
@@ -171,7 +203,7 @@ public final class Mat4 {
 
     @Override
     public int hashCode() {
-        return Objects.hash(c00, c01, c02, c03, c10, c11, c12, c13, c20, c21, c22, c23, c30, c31, c32, c33);
+        return Arrays.hashCode(this.toArray());
     }
 
     @Override
@@ -312,12 +344,7 @@ public final class Mat4 {
             inv[i] *= det;
         }
 
-        return new Mat4(
-            inv[0], inv[1], inv[2], inv[3],
-            inv[4], inv[5], inv[6], inv[7],
-            inv[8], inv[9], inv[10], inv[11],
-            inv[12], inv[13], inv[14], inv[15]
-        );
+        return Mat4.fromArray(inv);
     }
 
 }
