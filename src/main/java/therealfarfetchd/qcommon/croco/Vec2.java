@@ -135,7 +135,7 @@ public final class Vec2 {
 
     @Override
     public String toString() {
-        return String.format("(%f, %f)", x, y);
+        return String.format("Vec2(%f, %f)", x, y);
     }
 
     public static Vec2 from(Vec2f vec) {

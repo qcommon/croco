@@ -135,7 +135,7 @@ public final class Vec2i {
 
     @Override
     public String toString() {
-        return String.format("(%d, %d)", x, y);
+        return String.format("Vec2i(%d, %d)", x, y);
     }
 
 }

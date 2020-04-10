@@ -153,7 +153,7 @@ public final class Vec3 {
 
     @Override
     public String toString() {
-        return String.format("(%f, %f, %f)", x, y, z);
+        return String.format("Vec3(%f, %f, %f)", x, y, z);
     }
 
     public static Vec3 from(net.minecraft.util.math.Vec3i vec) {

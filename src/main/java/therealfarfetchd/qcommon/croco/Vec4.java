@@ -60,7 +60,7 @@ public final class Vec4 {
 
     @Override
     public String toString() {
-        return String.format("(%f, %f, %f, %f)", x, y, z, w);
+        return String.format("Vec4(%f, %f, %f, %f)", x, y, z, w);
     }
 
 }
