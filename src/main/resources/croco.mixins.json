@@ -3,6 +3,7 @@
   "package": "therealfarfetchd.qcommon.croco.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "Matrix3fMixin",
     "Matrix4fMixin"
   ],
   "injectors": {
