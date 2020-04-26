@@ -1,6 +1,8 @@
 package therealfarfetchd.qcommon.croco;
 
 import net.minecraft.client.util.math.Matrix4f;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import java.nio.FloatBuffer;
 import java.util.Arrays;
@@ -129,12 +131,14 @@ public final class Mat4 {
         );
     }
 
+    @Environment(EnvType.CLIENT)
     public Matrix4f toMatrix4f() {
         Matrix4f mat = new Matrix4f();
         Matrix4fExt.from(mat).setData(toArray());
         return mat;
     }
 
+    @Environment(EnvType.CLIENT)
     public static Mat4 fromMatrix4f(Matrix4f mat) {
         return Mat4.fromArray(Matrix4fExt.from(mat).getData());
     }
