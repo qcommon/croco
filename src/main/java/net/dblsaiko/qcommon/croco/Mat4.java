@@ -111,6 +111,66 @@ public final class Mat4 {
         return mul(other.toVec4()).toVec3();
     }
 
+    public static Mat4 perspective(float fovY, float aspect, float zNear, float zFar) {
+        float halfFovyRadians = (fovY / 2f) / 180 * (float) PI;
+        float range = (float) Math.tan(halfFovyRadians) * zNear;
+        float left = -range * aspect;
+        float right = range * aspect;
+        float bottom = -range;
+
+        return new Mat4(
+                2f * zNear / (right - left), 0f, 0f, 0f,
+                0f, 2f * zNear / (range - bottom), 0f, 0f,
+                0f, 0f, (-(zFar + zNear) / (zFar - zNear)), -(2f * zFar * zNear) / (zFar - zNear),
+                0f, 0f, -1f, 0f
+        );
+    }
+
+    public static Mat4 frustum(float left, float right, float bottom, float top, float zNear, float zFar) {
+        float m00 = 2f * zNear / (right - left);
+        float m11 = 2f * zNear / (top - bottom);
+        float m02 = (right + left) / (right - left);
+        float m12 = (top + bottom) / (top - bottom);
+        float m22 = -(zFar + zNear) / (zFar - zNear);
+        float m23 = -(2f * zFar * zNear) / (zFar - zNear);
+
+        return new Mat4(
+                m00, 0f, m02, 0f,
+                0f, m11, m12, 0f,
+                0f, 0f, m22, m23,
+                0f, 0f, -1f, 0f
+        );
+    }
+
+    public static Mat4 lookAt(Vec3 eye, Vec3 center, Vec3 up) {
+        Vec3 f = center.sub(eye).getNormalized();
+        Vec3 s = (f.cross(up.getNormalized())).getNormalized();
+        Vec3 u = s.cross(f);
+
+        return new Mat4(
+                s.x, s.y, s.z, -s.dot(eye),
+                u.x, u.y, u.z, -u.dot(eye),
+                -f.x, -f.y, -f.z, f.dot(eye),
+                0f, 0f, 0f, 1f
+        );
+    }
+
+    public static Mat4 ortho(float left, float right, float bottom, float top, float zNear, float zFar) {
+        float m00 = 2f / (right - left);
+        float m11 = 2f / (top - bottom);
+        float m22 = -2f / (zFar - zNear);
+        float m03 = -(right + left) / (right - left);
+        float m13 = -(top + bottom) / (top - bottom);
+        float m23 = -(zFar + zNear) / (zFar - zNear);
+
+        return new Mat4(
+                m00, 0f, 0f, m03,
+                0f, m11, 0f, m13,
+                0f, 0f, m22, m23,
+                0f, 0f, 0f, 1f
+        );
+    }
+
     public void intoBuffer(FloatBuffer fb) {
         // @formatter:off
         fb.put(c00); fb.put(c10); fb.put(c20); fb.put(c30);
