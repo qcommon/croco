@@ -93,15 +93,20 @@ public final class Mat3 {
         return new Mat3(
             data[0], data[3], data[6],
             data[1], data[4], data[7],
-            data[2], data[5], data[8]
+                data[2], data[5], data[8]
         );
     }
 
     @Environment(EnvType.CLIENT)
     public Matrix3f toMatrix3f() {
         Matrix3f mat = new Matrix3f();
-        Matrix3fExt.from(mat).setData(toArray());
+        intoMatrix3f(mat);
         return mat;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void intoMatrix3f(Matrix3f target) {
+        Matrix3fExt.from(target).setData(toArray());
     }
 
     @Environment(EnvType.CLIENT)
@@ -111,8 +116,8 @@ public final class Mat3 {
 
     public float[] toArray() {
         return new float[]{
-            c00, c01, c02,
-            c10, c11, c12,
+                c00, c01, c02,
+                c10, c11, c12,
             c20, c21, c22
         };
     }

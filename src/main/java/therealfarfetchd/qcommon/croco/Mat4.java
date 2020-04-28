@@ -18,10 +18,10 @@ import static java.lang.Math.sin;
 public final class Mat4 {
 
     public static final Mat4 IDENTITY = new Mat4(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1
     );
 
     public final float c00, c01, c02, c03;
@@ -36,10 +36,10 @@ public final class Mat4 {
     private boolean hasInverse = true;
 
     public Mat4(
-        float c00, float c01, float c02, float c03,
-        float c10, float c11, float c12, float c13,
-        float c20, float c21, float c22, float c23,
-        float c30, float c31, float c32, float c33
+            float c00, float c01, float c02, float c03,
+            float c10, float c11, float c12, float c13,
+            float c20, float c21, float c22, float c23,
+            float c30, float c31, float c32, float c33
     ) {
         this.c00 = c00;
         this.c01 = c01;
@@ -61,19 +61,19 @@ public final class Mat4 {
 
     public Mat4 translate(float x, float y, float z) {
         return mul(new Mat4(
-            1, 0, 0, x,
-            0, 1, 0, y,
-            0, 0, 1, z,
-            0, 0, 0, 1
+                1, 0, 0, x,
+                0, 1, 0, y,
+                0, 0, 1, z,
+                0, 0, 0, 1
         ));
     }
 
     public Mat4 scale(float x, float y, float z) {
         return mul(new Mat4(
-            x, 0, 0, 0,
-            0, y, 0, 0,
-            0, 0, z, 0,
-            0, 0, 0, 1
+                x, 0, 0, 0,
+                0, y, 0, 0,
+                0, 0, z, 0,
+                0, 0, 0, 1
         ));
     }
 
@@ -83,10 +83,10 @@ public final class Mat4 {
         float t = 1 - c;
 
         return mul(new Mat4(
-            t * x * x + c, t * x * y - s * z, t * x * z + s * y, 0f,
-            t * x * y + s * z, t * y * y + c, t * y * z - s * x, 0f,
-            t * x * z - s * y, t * y * z + s * x, t * z * z + c, 0f,
-            0f, 0f, 0f, 1f
+                t * x * x + c, t * x * y - s * z, t * x * z + s * y, 0f,
+                t * x * y + s * z, t * y * y + c, t * y * z - s * x, 0f,
+                t * x * z - s * y, t * y * z + s * x, t * z * z + c, 0f,
+                0f, 0f, 0f, 1f
         ));
     }
 
@@ -96,10 +96,10 @@ public final class Mat4 {
 
     public Mat4 mul(Mat4 other) {
         return new Mat4(
-            getR0().dot(other.getC0()), getR0().dot(other.getC1()), getR0().dot(other.getC2()), getR0().dot(other.getC3()),
-            getR1().dot(other.getC0()), getR1().dot(other.getC1()), getR1().dot(other.getC2()), getR1().dot(other.getC3()),
-            getR2().dot(other.getC0()), getR2().dot(other.getC1()), getR2().dot(other.getC2()), getR2().dot(other.getC3()),
-            getR3().dot(other.getC0()), getR3().dot(other.getC1()), getR3().dot(other.getC2()), getR3().dot(other.getC3())
+                getR0().dot(other.getC0()), getR0().dot(other.getC1()), getR0().dot(other.getC2()), getR0().dot(other.getC3()),
+                getR1().dot(other.getC0()), getR1().dot(other.getC1()), getR1().dot(other.getC2()), getR1().dot(other.getC3()),
+                getR2().dot(other.getC0()), getR2().dot(other.getC1()), getR2().dot(other.getC2()), getR2().dot(other.getC3()),
+                getR3().dot(other.getC0()), getR3().dot(other.getC1()), getR3().dot(other.getC2()), getR3().dot(other.getC3())
         );
     }
 
@@ -124,18 +124,31 @@ public final class Mat4 {
         float[] data = new float[16];
         fb.get(data);
         return new Mat4(
-            data[0], data[4], data[8], data[12],
-            data[1], data[5], data[9], data[13],
-            data[2], data[6], data[10], data[14],
-            data[3], data[7], data[11], data[15]
+                data[0], data[4], data[8], data[12],
+                data[1], data[5], data[9], data[13],
+                data[2], data[6], data[10], data[14],
+                data[3], data[7], data[11], data[15]
+        );
+    }
+
+    public Mat3 getRotation() {
+        return new Mat3(
+                c00, c01, c02,
+                c10, c11, c12,
+                c20, c21, c22
         );
     }
 
     @Environment(EnvType.CLIENT)
     public Matrix4f toMatrix4f() {
         Matrix4f mat = new Matrix4f();
-        Matrix4fExt.from(mat).setData(toArray());
+        intoMatrix4f(mat);
         return mat;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void intoMatrix4f(Matrix4f target) {
+        Matrix4fExt.from(target).setData(toArray());
     }
 
     @Environment(EnvType.CLIENT)
@@ -145,19 +158,19 @@ public final class Mat4 {
 
     public float[] toArray() {
         return new float[]{
-            c00, c01, c02, c03,
-            c10, c11, c12, c13,
-            c20, c21, c22, c23,
-            c30, c31, c32, c33
+                c00, c01, c02, c03,
+                c10, c11, c12, c13,
+                c20, c21, c22, c23,
+                c30, c31, c32, c33
         };
     }
 
     public static Mat4 fromArray(float[] array) {
         return new Mat4(
-            array[0], array[1], array[2], array[3],
-            array[4], array[5], array[6], array[7],
-            array[8], array[9], array[10], array[11],
-            array[12], array[13], array[14], array[15]
+                array[0], array[1], array[2], array[3],
+                array[4], array[5], array[6], array[7],
+                array[8], array[9], array[10], array[11],
+                array[12], array[13], array[14], array[15]
         );
     }
 
@@ -188,21 +201,21 @@ public final class Mat4 {
         if (o == null || getClass() != o.getClass()) return false;
         Mat4 mat4 = (Mat4) o;
         return Float.compare(mat4.c00, c00) == 0 &&
-            Float.compare(mat4.c01, c01) == 0 &&
-            Float.compare(mat4.c02, c02) == 0 &&
-            Float.compare(mat4.c03, c03) == 0 &&
-            Float.compare(mat4.c10, c10) == 0 &&
-            Float.compare(mat4.c11, c11) == 0 &&
-            Float.compare(mat4.c12, c12) == 0 &&
-            Float.compare(mat4.c13, c13) == 0 &&
-            Float.compare(mat4.c20, c20) == 0 &&
-            Float.compare(mat4.c21, c21) == 0 &&
-            Float.compare(mat4.c22, c22) == 0 &&
-            Float.compare(mat4.c23, c23) == 0 &&
-            Float.compare(mat4.c30, c30) == 0 &&
-            Float.compare(mat4.c31, c31) == 0 &&
-            Float.compare(mat4.c32, c32) == 0 &&
-            Float.compare(mat4.c33, c33) == 0;
+                Float.compare(mat4.c01, c01) == 0 &&
+                Float.compare(mat4.c02, c02) == 0 &&
+                Float.compare(mat4.c03, c03) == 0 &&
+                Float.compare(mat4.c10, c10) == 0 &&
+                Float.compare(mat4.c11, c11) == 0 &&
+                Float.compare(mat4.c12, c12) == 0 &&
+                Float.compare(mat4.c13, c13) == 0 &&
+                Float.compare(mat4.c20, c20) == 0 &&
+                Float.compare(mat4.c21, c21) == 0 &&
+                Float.compare(mat4.c22, c22) == 0 &&
+                Float.compare(mat4.c23, c23) == 0 &&
+                Float.compare(mat4.c30, c30) == 0 &&
+                Float.compare(mat4.c31, c31) == 0 &&
+                Float.compare(mat4.c32, c32) == 0 &&
+                Float.compare(mat4.c33, c33) == 0;
     }
 
     @Override
@@ -229,120 +242,120 @@ public final class Mat4 {
         float[] m = {c00, c01, c02, c03, c10, c11, c12, c13, c20, c21, c22, c23, c30, c31, c32, c33};
 
         inv[0] = m[5] * m[10] * m[15] -
-            m[5] * m[11] * m[14] -
-            m[9] * m[6] * m[15] +
-            m[9] * m[7] * m[14] +
-            m[13] * m[6] * m[11] -
-            m[13] * m[7] * m[10];
+                m[5] * m[11] * m[14] -
+                m[9] * m[6] * m[15] +
+                m[9] * m[7] * m[14] +
+                m[13] * m[6] * m[11] -
+                m[13] * m[7] * m[10];
 
         inv[4] = -m[4] * m[10] * m[15] +
-            m[4] * m[11] * m[14] +
-            m[8] * m[6] * m[15] -
-            m[8] * m[7] * m[14] -
-            m[12] * m[6] * m[11] +
-            m[12] * m[7] * m[10];
+                m[4] * m[11] * m[14] +
+                m[8] * m[6] * m[15] -
+                m[8] * m[7] * m[14] -
+                m[12] * m[6] * m[11] +
+                m[12] * m[7] * m[10];
 
         inv[8] = m[4] * m[9] * m[15] -
-            m[4] * m[11] * m[13] -
-            m[8] * m[5] * m[15] +
-            m[8] * m[7] * m[13] +
-            m[12] * m[5] * m[11] -
-            m[12] * m[7] * m[9];
+                m[4] * m[11] * m[13] -
+                m[8] * m[5] * m[15] +
+                m[8] * m[7] * m[13] +
+                m[12] * m[5] * m[11] -
+                m[12] * m[7] * m[9];
 
         inv[12] = -m[4] * m[9] * m[14] +
-            m[4] * m[10] * m[13] +
-            m[8] * m[5] * m[14] -
-            m[8] * m[6] * m[13] -
-            m[12] * m[5] * m[10] +
-            m[12] * m[6] * m[9];
+                m[4] * m[10] * m[13] +
+                m[8] * m[5] * m[14] -
+                m[8] * m[6] * m[13] -
+                m[12] * m[5] * m[10] +
+                m[12] * m[6] * m[9];
 
         float det = m[0] * inv[0] + m[1] * inv[4] + m[2] * inv[8] + m[3] * inv[12];
         if (det == 0) return null;
         det = 1 / det;
 
         inv[1] = -m[1] * m[10] * m[15] +
-            m[1] * m[11] * m[14] +
-            m[9] * m[2] * m[15] -
-            m[9] * m[3] * m[14] -
-            m[13] * m[2] * m[11] +
-            m[13] * m[3] * m[10];
+                m[1] * m[11] * m[14] +
+                m[9] * m[2] * m[15] -
+                m[9] * m[3] * m[14] -
+                m[13] * m[2] * m[11] +
+                m[13] * m[3] * m[10];
 
         inv[5] = m[0] * m[10] * m[15] -
-            m[0] * m[11] * m[14] -
-            m[8] * m[2] * m[15] +
-            m[8] * m[3] * m[14] +
-            m[12] * m[2] * m[11] -
-            m[12] * m[3] * m[10];
+                m[0] * m[11] * m[14] -
+                m[8] * m[2] * m[15] +
+                m[8] * m[3] * m[14] +
+                m[12] * m[2] * m[11] -
+                m[12] * m[3] * m[10];
 
         inv[9] = -m[0] * m[9] * m[15] +
-            m[0] * m[11] * m[13] +
-            m[8] * m[1] * m[15] -
-            m[8] * m[3] * m[13] -
-            m[12] * m[1] * m[11] +
-            m[12] * m[3] * m[9];
+                m[0] * m[11] * m[13] +
+                m[8] * m[1] * m[15] -
+                m[8] * m[3] * m[13] -
+                m[12] * m[1] * m[11] +
+                m[12] * m[3] * m[9];
 
         inv[13] = m[0] * m[9] * m[14] -
-            m[0] * m[10] * m[13] -
-            m[8] * m[1] * m[14] +
-            m[8] * m[2] * m[13] +
-            m[12] * m[1] * m[10] -
-            m[12] * m[2] * m[9];
+                m[0] * m[10] * m[13] -
+                m[8] * m[1] * m[14] +
+                m[8] * m[2] * m[13] +
+                m[12] * m[1] * m[10] -
+                m[12] * m[2] * m[9];
 
         inv[2] = m[1] * m[6] * m[15] -
-            m[1] * m[7] * m[14] -
-            m[5] * m[2] * m[15] +
-            m[5] * m[3] * m[14] +
-            m[13] * m[2] * m[7] -
-            m[13] * m[3] * m[6];
+                m[1] * m[7] * m[14] -
+                m[5] * m[2] * m[15] +
+                m[5] * m[3] * m[14] +
+                m[13] * m[2] * m[7] -
+                m[13] * m[3] * m[6];
 
         inv[6] = -m[0] * m[6] * m[15] +
-            m[0] * m[7] * m[14] +
-            m[4] * m[2] * m[15] -
-            m[4] * m[3] * m[14] -
-            m[12] * m[2] * m[7] +
-            m[12] * m[3] * m[6];
+                m[0] * m[7] * m[14] +
+                m[4] * m[2] * m[15] -
+                m[4] * m[3] * m[14] -
+                m[12] * m[2] * m[7] +
+                m[12] * m[3] * m[6];
 
         inv[10] = m[0] * m[5] * m[15] -
-            m[0] * m[7] * m[13] -
-            m[4] * m[1] * m[15] +
-            m[4] * m[3] * m[13] +
-            m[12] * m[1] * m[7] -
-            m[12] * m[3] * m[5];
+                m[0] * m[7] * m[13] -
+                m[4] * m[1] * m[15] +
+                m[4] * m[3] * m[13] +
+                m[12] * m[1] * m[7] -
+                m[12] * m[3] * m[5];
 
         inv[14] = -m[0] * m[5] * m[14] +
-            m[0] * m[6] * m[13] +
-            m[4] * m[1] * m[14] -
-            m[4] * m[2] * m[13] -
-            m[12] * m[1] * m[6] +
-            m[12] * m[2] * m[5];
+                m[0] * m[6] * m[13] +
+                m[4] * m[1] * m[14] -
+                m[4] * m[2] * m[13] -
+                m[12] * m[1] * m[6] +
+                m[12] * m[2] * m[5];
 
         inv[3] = -m[1] * m[6] * m[11] +
-            m[1] * m[7] * m[10] +
-            m[5] * m[2] * m[11] -
-            m[5] * m[3] * m[10] -
-            m[9] * m[2] * m[7] +
-            m[9] * m[3] * m[6];
+                m[1] * m[7] * m[10] +
+                m[5] * m[2] * m[11] -
+                m[5] * m[3] * m[10] -
+                m[9] * m[2] * m[7] +
+                m[9] * m[3] * m[6];
 
         inv[7] = m[0] * m[6] * m[11] -
-            m[0] * m[7] * m[10] -
-            m[4] * m[2] * m[11] +
-            m[4] * m[3] * m[10] +
-            m[8] * m[2] * m[7] -
-            m[8] * m[3] * m[6];
+                m[0] * m[7] * m[10] -
+                m[4] * m[2] * m[11] +
+                m[4] * m[3] * m[10] +
+                m[8] * m[2] * m[7] -
+                m[8] * m[3] * m[6];
 
         inv[11] = -m[0] * m[5] * m[11] +
-            m[0] * m[7] * m[9] +
-            m[4] * m[1] * m[11] -
-            m[4] * m[3] * m[9] -
-            m[8] * m[1] * m[7] +
-            m[8] * m[3] * m[5];
+                m[0] * m[7] * m[9] +
+                m[4] * m[1] * m[11] -
+                m[4] * m[3] * m[9] -
+                m[8] * m[1] * m[7] +
+                m[8] * m[3] * m[5];
 
         inv[15] = m[0] * m[5] * m[10] -
-            m[0] * m[6] * m[9] -
-            m[4] * m[1] * m[10] +
-            m[4] * m[2] * m[9] +
-            m[8] * m[1] * m[6] -
-            m[8] * m[2] * m[5];
+                m[0] * m[6] * m[9] -
+                m[4] * m[1] * m[10] +
+                m[4] * m[2] * m[9] +
+                m[8] * m[1] * m[6] -
+                m[8] * m[2] * m[5];
 
         for (int i = 0; i < inv.length; i++) {
             inv[i] *= det;
