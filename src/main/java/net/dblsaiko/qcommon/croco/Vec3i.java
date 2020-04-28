@@ -1,23 +1,23 @@
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import net.minecraft.util.math.Vec3d;
 
 import java.util.Objects;
 
-public final class Vec3 {
+public final class Vec3i {
 
-    public static final Vec3 ORIGIN = new Vec3(0, 0, 0);
+    public static final Vec3i ORIGIN = new Vec3i(0, 0, 0);
 
-    public final float x;
-    public final float y;
-    public final float z;
+    public final int x;
+    public final int y;
+    public final int z;
 
-    float length = Float.NaN;
-    float lengthSq = Float.NaN;
-    Vec3 normalized;
-    private Vec3 negated;
+    private float length = Float.NaN;
+    private float lengthSq = Float.NaN;
+    private Vec3 normalized;
+    private Vec3i negated;
 
-    public Vec3(float x, float y, float z) {
+    public Vec3i(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -27,59 +27,59 @@ public final class Vec3 {
         return new Vec3(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
-    public Vec3 add(Vec3i other) {
-        return new Vec3(this.x + other.x, this.y + other.y, this.z + other.z);
+    public Vec3i add(Vec3i other) {
+        return new Vec3i(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
     public Vec3 sub(Vec3 other) {
         return new Vec3(this.x - other.x, this.y - other.y, this.z - other.z);
     }
 
-    public Vec3 sub(Vec3i other) {
-        return new Vec3(this.x - other.x, this.y - other.y, this.z - other.z);
+    public Vec3i sub(Vec3i other) {
+        return new Vec3i(this.x - other.x, this.y - other.y, this.z - other.z);
     }
 
     public Vec3 mul(Vec3 other) {
         return new Vec3(this.x * other.x, this.y * other.y, this.z * other.z);
     }
 
-    public Vec3 mul(Vec3i other) {
-        return new Vec3(this.x * other.x, this.y * other.y, this.z * other.z);
+    public Vec3i mul(Vec3i other) {
+        return new Vec3i(this.x * other.x, this.y * other.y, this.z * other.z);
     }
 
     public Vec3 mul(float other) {
         return new Vec3(this.x * other, this.y * other, this.z * other);
     }
 
-    public Vec3 mul(int other) {
-        return new Vec3(this.x * other, this.y * other, this.z * other);
+    public Vec3i mul(int other) {
+        return new Vec3i(this.x * other, this.y * other, this.z * other);
     }
 
     public Vec3 div(Vec3 other) {
         return new Vec3(x / other.x, this.y / other.y, this.z / other.z);
     }
 
-    public Vec3 div(Vec3i other) {
-        return new Vec3(x / other.x, this.y / other.y, this.z / other.z);
+    public Vec3i div(Vec3i other) {
+        return new Vec3i(x / other.x, this.y / other.y, this.z / other.z);
     }
 
     public Vec3 div(float other) {
         return new Vec3(x / other, this.y / other, this.z / other);
     }
 
-    public Vec3 div(int other) {
-        return new Vec3(x / other, this.y / other, this.z / other);
+    public Vec3i div(int other) {
+        return new Vec3i(x / other, this.y / other, this.z / other);
     }
 
-    public float dot(Vec3 other) {
+    public float dot(Vec3i other) {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 
-    public Vec3 cross(Vec3 other) {
-        float cx = this.y * other.z - this.z * other.y;
-        float cy = this.z * other.x - this.x * other.z;
-        float cz = this.x * other.y - this.y * other.x;
-        return new Vec3(cx, cy, cz);
+    public Vec3i cross(Vec3i other) {
+        int cx = this.y * other.z - this.z * other.y;
+        int cy = this.z * other.x - this.x * other.z;
+        int cz = this.x * other.y - this.y * other.x;
+        return new Vec3i(cx, cy, cz);
     }
 
     public float getLength() {
@@ -109,9 +109,9 @@ public final class Vec3 {
         return normalized;
     }
 
-    public Vec3 negate() {
+    public Vec3i negate() {
         if (negated == null) {
-            negated = new Vec3(-x, -y, -z);
+            negated = new Vec3i(-x, -y, -z);
             negated.length = length;
             negated.lengthSq = lengthSq;
             negated.negated = this;
@@ -124,12 +124,8 @@ public final class Vec3 {
         return new Vec3d(x, y, z);
     }
 
-    public net.minecraft.util.math.Vec3i toMCVec3i() {
+    public net.minecraft.util.math.Vec3i toVec3i() {
         return new net.minecraft.util.math.Vec3i(x, y, z);
-    }
-
-    public Vec3i toVec3i() {
-        return new Vec3i((int) x, (int) y, (int) z);
     }
 
     public Vec4 toVec4() {
@@ -140,7 +136,7 @@ public final class Vec3 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Vec3 vec3 = (Vec3) o;
+        Vec3i vec3 = (Vec3i) o;
         return vec3.x == x &&
             vec3.y == y &&
             vec3.z == z;
@@ -153,15 +149,15 @@ public final class Vec3 {
 
     @Override
     public String toString() {
-        return String.format("Vec3(%f, %f, %f)", x, y, z);
+        return String.format("Vec3i(%d, %d, %d)", x, y, z);
     }
 
-    public static Vec3 from(net.minecraft.util.math.Vec3i vec) {
-        return new Vec3(vec.getX(), vec.getY(), vec.getZ());
+    public static Vec3i from(net.minecraft.util.math.Vec3i vec) {
+        return new Vec3i(vec.getX(), vec.getY(), vec.getZ());
     }
 
-    public static Vec3 from(Vec3d vec) {
-        return new Vec3((float) vec.x, (float) vec.y, (float) vec.z);
+    public static Vec3i from(Vec3d vec) {
+        return new Vec3i((int) vec.x, (int) vec.y, (int) vec.z);
     }
 
 }

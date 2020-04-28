@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import net.minecraft.client.util.math.Matrix4f;
 import net.fabricmc.api.EnvType;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
-import therealfarfetchd.qcommon.croco.ext.Matrix4fExt;
+import net.dblsaiko.qcommon.croco.ext.Matrix4fExt;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;

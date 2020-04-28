@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon;
+package net.dblsaiko.qcommon;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "therealfarfetchd.qcommon.croco.mixin",
+  "package": "net.dblsaiko.qcommon.croco.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "Matrix3fMixin",

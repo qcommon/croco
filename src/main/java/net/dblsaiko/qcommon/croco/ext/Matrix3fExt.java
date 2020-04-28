@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon.croco.ext;
+package net.dblsaiko.qcommon.croco.ext;
 
 import net.minecraft.client.util.math.Matrix3f;
 

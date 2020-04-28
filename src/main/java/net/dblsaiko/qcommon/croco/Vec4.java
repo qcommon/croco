@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import java.util.Objects;
 

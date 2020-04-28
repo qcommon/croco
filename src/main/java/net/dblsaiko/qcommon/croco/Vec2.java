@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import net.minecraft.util.math.Vec2f;
 

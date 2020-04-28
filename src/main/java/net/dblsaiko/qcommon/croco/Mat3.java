@@ -1,4 +1,4 @@
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import net.minecraft.client.util.math.Matrix3f;
 import net.fabricmc.api.EnvType;
@@ -7,7 +7,7 @@ import net.fabricmc.api.Environment;
 import java.nio.FloatBuffer;
 import java.util.Objects;
 
-import therealfarfetchd.qcommon.croco.ext.Matrix3fExt;
+import net.dblsaiko.qcommon.croco.ext.Matrix3fExt;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;

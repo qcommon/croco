@@ -1,11 +1,11 @@
-package therealfarfetchd.qcommon.croco.mixin;
+package net.dblsaiko.qcommon.croco.mixin;
 
 import net.minecraft.client.util.math.Matrix3f;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import therealfarfetchd.qcommon.croco.ext.Matrix4fExt;
+import net.dblsaiko.qcommon.croco.ext.Matrix4fExt;
 
 @Mixin(Matrix3f.class)
 public abstract class Matrix3fMixin implements Matrix4fExt {

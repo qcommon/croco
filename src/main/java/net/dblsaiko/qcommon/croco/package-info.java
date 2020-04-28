@@ -1,7 +1,7 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package therealfarfetchd.qcommon.croco;
+package net.dblsaiko.qcommon.croco;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import therealfarfetchd.qcommon.MethodsReturnNonnullByDefault;
+import net.dblsaiko.qcommon.MethodsReturnNonnullByDefault;
