@@ -3,6 +3,9 @@ package net.dblsaiko.qcommon.croco;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -65,6 +68,7 @@ public class MatStack {
         return stack.size();
     }
 
+    @Environment(EnvType.CLIENT)
     public static MatStack fromMatrixStack(MatrixStack stack) {
         MatStack ms = new MatStack();
         List<Matrix4f> matrices = new ArrayList<>();
@@ -86,12 +90,14 @@ public class MatStack {
         return ms;
     }
 
+    @Environment(EnvType.CLIENT)
     public MatrixStack toMatrixStack() {
         MatrixStack stack = new MatrixStack();
         intoMatrixStack(stack);
         return stack;
     }
 
+    @Environment(EnvType.CLIENT)
     public void intoMatrixStack(MatrixStack target) {
         stack.forEach(mat -> {
             mat.intoMatrix4f(target.peek().getModel());
